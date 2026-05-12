@@ -1,0 +1,37 @@
+import 'package:coolservice/domain/entidades/cliente.dart';
+
+class ClientModel extends Client {
+  // O construtor do Model passa os dados para a Entidade pai
+  ClientModel({
+    required super.id,
+    required super.name,
+    required super.cpfCnpj,
+    required super.address,
+    required super.phone,
+    required super.email,
+  });
+
+  // 1. toMap: Transforma o objeto em um "Dicionário" para o SQLite
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'cpfCnpj': cpfCnpj,
+      'address': address,
+      'phone': phone,
+      'email': email,
+    };
+  }
+
+  // 2. fromMap: Pega o "Dicionário" do SQLite e transforma em objeto Dart
+  factory ClientModel.fromMap(Map<String, dynamic> map) {
+    return ClientModel(
+      id: map['id'],
+      name: map['name'],
+      cpfCnpj: map['cpfCnpj'],
+      address: map['address'],
+      phone: map['phone'],
+      email: map['email'],
+    );
+  }
+}
