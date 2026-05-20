@@ -11,7 +11,6 @@ class SQLiteFuncionarioRepository implements IFuncionarioRepository {
   Future<void> save(Funcionario funcionario) async {
     final db = await _dbHelper.database;
 
-    // converte  Entidade recebida em Model para usar o toMap
     final model = FuncionarioModel(
       id: funcionario.id,
       name: funcionario.name,
@@ -23,10 +22,9 @@ class SQLiteFuncionarioRepository implements IFuncionarioRepository {
     );
 
     await db.insert(
-      'employees', // Nome da tabela  definido no DatabaseHelper
+      'employees',
       model.toMap(),
-      conflictAlgorithm:
-          ConflictAlgorithm.replace, // Se o ID existir, ele atualiza
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
@@ -46,7 +44,6 @@ class SQLiteFuncionarioRepository implements IFuncionarioRepository {
     await db.delete('employees', where: 'id = ?', whereArgs: [id]);
   }
 
-  @override
   Future<void> toggleActive(String id, bool isActive) async {
     final db = await _dbHelper.database;
     await db.update(
