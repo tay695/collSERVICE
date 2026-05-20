@@ -8,6 +8,7 @@ import 'package:coolservice/presentation/funcionarios/view_model/funcionario_vie
     show FuncionarioViewModel;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:coolservice/core/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +46,8 @@ class MyApp extends StatelessWidget {
       title: 'CoolService',
       debugShowCheckedModeBanner: false,
       themeMode: configViewModel.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
 
       // Lógica de roteamento inicial pelo SharedPreferences
       home: configViewModel.isFirstTime
