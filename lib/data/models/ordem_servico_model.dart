@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:coolservice/domain/entidades/ordem_servico.dart';
 
 class OrdemServicoModel extends OrdemServico {

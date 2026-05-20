@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import 'package:coolservice/core/widgets/menu_lateral.dart';
 import 'package:coolservice/domain/entidades/funcionarios.dart';
+=======
+>>>>>>> da8efc046494d39eac4fefb06f887505f7ca925a
 import 'package:coolservice/presentation/funcionarios/view_model/funcionario_viewModel.dart';
 import 'package:coolservice/presentation/funcionarios/view/funcionario_form_page.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ class FuncionarioListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Funcionários')),
+<<<<<<< HEAD
       drawer: const MenuLateral(),
       body: Column(
         children: [
@@ -64,13 +68,26 @@ class FuncionarioListPage extends StatelessWidget {
             ),
           ),
         ],
+=======
+      body: ListView.builder(
+        itemCount: viewModel.funcionarios.length,
+        itemBuilder: (context, index) {
+          final f = viewModel.funcionarios[index];
+          return ListTile(
+            title: Text(f.name),
+            subtitle: Text(f.role.name),
+            trailing: Icon(
+              Icons.circle,
+              color: f.isActive ? Colors.green : Colors.red,
+            ),
+          );
+        },
+>>>>>>> da8efc046494d39eac4fefb06f887505f7ca925a
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => const FuncionarioFormPage(),
-          ),
+          MaterialPageRoute(builder: (_) => const FuncionarioFormPage()),
         ),
         child: const Icon(Icons.add),
       ),

@@ -39,8 +39,9 @@ class FuncionarioViewModel extends ChangeNotifier {
     _funcionarios = await _repository.listAll();
     notifyListeners();
   }
+
   Future<void> toggleActive(String id, bool isActive) async {
-  await _repository.toggleActive(id, isActive);
-  await listAll();
-}
+    await _repository.toggleActive(id, isActive);
+    await listAll();
+  }
 }
