@@ -1,4 +1,9 @@
 import 'package:coolservice/core/app_config/presentation/viewmodels/app_config_view_model.dart';
+import 'package:coolservice/core/presentation/view/dashboard_page.dart';
+import 'package:coolservice/freatures/clientes/presentation/view/client_form_page.dart';
+import 'package:coolservice/freatures/clientes/presentation/view/client_list_page.dart';
+import 'package:coolservice/freatures/funcionarios/presentation/view/funcionario_form_page.dart';
+import 'package:coolservice/freatures/funcionarios/presentation/view/funcionario_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,23 +31,37 @@ class MenuLateral extends StatelessWidget {
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
 
-          // Item: Dashboard / Início
+          //  Início
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Início'),
+            leading: const Icon(Icons.badge),
+            title: const Text('Funcionários'),
             onTap: () {
-              Navigator.pop(context); // Fecha o menu lateral
-              // Aqui você adicionaria a navegação para a home se necessário
+              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const DashboardPage()),
+              );
             },
           ),
 
-          // Item: Clientes
+          //  Clientes
           ListTile(
             leading: const Icon(Icons.people),
             title: const Text('Clientes'),
             onTap: () {
               Navigator.pop(context);
-              // Navigator.pushNamed(context, '/clientes');
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const ClientListPage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.people),
+            title: const Text('Adicionar clientes'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const ClientFormPage()),
+              );
             },
           ),
 
@@ -52,10 +71,21 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Funcionários'),
             onTap: () {
               Navigator.pop(context);
-              // Navigator.pushNamed(context, '/funcionarios');
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const FuncionarioListPage()),
+              );
             },
           ),
-
+          ListTile(
+            leading: const Icon(Icons.badge),
+            title: const Text('Adicionar funcionário'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const FuncionarioFormPage()),
+              );
+            },
+          ),
           // Item: Ordens de Serviço
           ListTile(
             leading: const Icon(Icons.assignment),
@@ -65,8 +95,6 @@ class MenuLateral extends StatelessWidget {
             },
           ),
 
-          const Divider(), // Linha divisória estética
-          // Item Especial: Switch do Modo Escuro integrado ao SharedPreferences
           SwitchListTile(
             secondary: Icon(
               configViewModel.isDarkMode ? Icons.dark_mode : Icons.light_mode,
@@ -74,13 +102,11 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Modo Escuro'),
             value: configViewModel.isDarkMode,
             onChanged: (bool value) {
-              // Executa a função da ViewModel que salva no SharedPreferences
               configViewModel.toggleTheme(value);
             },
           ),
 
-          const Spacer(), // Empurra o rodapé para o final da tela
-          // Versão do App no Rodapé
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
