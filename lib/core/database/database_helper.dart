@@ -40,7 +40,9 @@ class DatabaseHelper {
         especialty TEXT NOT NULL,
         phone TEXT NOT NULL,
         role TEXT NOT NULL,
-        isActive INTEGER DEFAULT 1
+        isActive INTEGER DEFAULT 1,
+        username TEXT UNIQUE NOT NULL,
+        password_hash TEXT NOT NULL
       )
     ''');
 

@@ -44,4 +44,14 @@ class FuncionarioViewModel extends ChangeNotifier {
     await _repository.toggleActive(id, isActive);
     await listAll();
   }
+  String generateUsername(String name, String phone) {
+  final primeiro = name.trim().split(' ').first.toLowerCase();
+  final digits = phone.replaceAll(RegExp(r'\D'), '');
+  final ultimos4 = digits.substring(digits.length - 4);
+  return '$primeiro$ultimos4';
+  }
+  String generatePassword(String cpf) {
+  final digits = cpf.replaceAll(RegExp(r'\D'), '');
+  return digits.substring(0, 6); // primeiros 6 dígitos do CPF
+  }
 }

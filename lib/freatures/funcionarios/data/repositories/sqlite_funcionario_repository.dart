@@ -19,6 +19,8 @@ class SQLiteFuncionarioRepository implements IFuncionarioRepository {
       phone: funcionario.phone,
       role: funcionario.role,
       isActive: funcionario.isActive,
+      username: funcionario.username,
+      passwordHash: funcionario.passwordHash,
     );
 
     await db.insert(
