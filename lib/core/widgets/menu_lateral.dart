@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios.dart';
 
 class MenuLateral extends StatelessWidget {
-  final Funcionario funcionario;
-  const MenuLateral({super.key, required this.funcionario});
+   final Funcionario funcionario;
+    const MenuLateral({super.key, required this.funcionario});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class MenuLateral extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: Color.fromARGB(255, 12, 8, 8),
               child: Icon(Icons.build, size: 35, color: Colors.blue),
             ),
             accountName: const Text(
@@ -41,10 +41,8 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Início'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (_) => DashboardPage(funcionario: funcionario),
-                ),
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => DashboardPage(funcionario: funcionario)),
               );
             },
           ),
@@ -55,8 +53,8 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Clientes'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => const ClientListPage()),
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => ClientListPage(funcionario: funcionario)),
               );
             },
           ),
@@ -65,22 +63,22 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Adicionar clientes'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const ClientFormPage()),
               );
             },
           ),
 
           // Item: Funcionários
-          ListTile(
+           ListTile(
             leading: const Icon(Icons.badge),
             title: const Text('Funcionários'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => FuncionarioListPage(funcionario: funcionario),
-                ),
+                    builder: (_) =>
+                        FuncionarioListPage(funcionario: funcionario)),
               );
             },
           ),
@@ -90,13 +88,15 @@ class MenuLateral extends StatelessWidget {
               title: const Text('Adicionar funcionário'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => const FuncionarioFormPage(),
-                  ),
+                      builder: (_) => const FuncionarioFormPage()),
                 );
               },
             ),
+
+         
+
 
           // Item: Serviços
           ListTile(
@@ -106,11 +106,11 @@ class MenuLateral extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const ServiceListPage()),
+                MaterialPageRoute(builder: (_) => ServiceListPage(funcionario: funcionario)),
               );
             },
           ),
-          if (isAdmin)
+           if (isAdmin)
             ListTile(
               leading: const Icon(Icons.add_box),
               title: const Text('Adicionar serviço'),
@@ -118,6 +118,7 @@ class MenuLateral extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
+
 
           // Item: Ordens de Serviço
           ListTile(
