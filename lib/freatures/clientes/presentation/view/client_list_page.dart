@@ -5,12 +5,26 @@ import 'package:coolservice/freatures/clientes/presentation/view_model/client_vi
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ClientListPage extends StatelessWidget {
+class ClientListPage extends StatefulWidget {
   final Funcionario funcionario;
   const ClientListPage({super.key, required this.funcionario});
 
   @override
+  State<ClientListPage> createState() => _ClientListPageState();
+}
+
+class _ClientListPageState extends State<ClientListPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<ClientViewModel>().listAll();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final funcionario = widget.funcionario;
     final viewModel = context.watch<ClientViewModel>();
 
     return Scaffold(
@@ -43,9 +57,9 @@ class ClientListPage extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => ClientFormPage(client: c),
                       ),
-                    ),
+                    ).then((_) => context.read<ClientViewModel>().listAll()),
                   ),
-                );
+                  );
               },
             ),
           ),
@@ -55,7 +69,7 @@ class ClientListPage extends StatelessWidget {
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const ClientFormPage()),
-        ),
+        ).then((_) => context.read<ClientViewModel>().listAll()),
         child: const Icon(Icons.add),
       ),
     );

@@ -3,19 +3,35 @@ import 'package:coolservice/freatures/funcionarios/presentation/view_model/funci
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios.dart';
+import 'package:coolservice/core/widgets/menu_lateral.dart';
 
 import 'package:coolservice/core/theme/app_theme.dart';
 
-class FuncionarioListPage extends StatelessWidget {
+class FuncionarioListPage extends StatefulWidget {
   final Funcionario funcionario;
   const FuncionarioListPage({super.key, required this.funcionario});
 
   @override
+  State<FuncionarioListPage> createState() => _FuncionarioListPageState();
+}
+
+class _FuncionarioListPageState extends State<FuncionarioListPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<FuncionarioViewModel>().listAll();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final funcionario = widget.funcionario;
     final viewModel = context.watch<FuncionarioViewModel>();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Funcionários')),
+      drawer: MenuLateral(funcionario: funcionario),
       body: Column(
         children: [
           Padding(
@@ -66,7 +82,7 @@ class FuncionarioListPage extends StatelessWidget {
                               builder: (_) =>
                                   FuncionarioFormPage(funcionario: f),
                             ),
-                          ),
+                          ).then((_) => context.read<FuncionarioViewModel>().listAll()),
                         ),
                     ],
                   ),
@@ -82,7 +98,7 @@ class FuncionarioListPage extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const FuncionarioFormPage()),
-              ),
+              ).then((_) => context.read<FuncionarioViewModel>().listAll()),
               child: const Icon(Icons.add),
             )
           : null,

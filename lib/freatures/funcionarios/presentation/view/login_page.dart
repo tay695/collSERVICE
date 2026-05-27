@@ -79,11 +79,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                child: const Icon(
-                  Icons.build_circle_outlined,
-                  size: 64,
-                  color: AppColors.cianoFrio,
-                ),
+               child: Image.asset(
+                'assets/images/logo.png',
+               width: 120,
+               height: 120,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                   Icons.build_circle_outlined,
+                   size: 64,
+                    color: AppColors.cianoFrio,
+                     ),
+                     ),
               ),
 
               const SizedBox(height: 32),
