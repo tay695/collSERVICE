@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 class MenuLateral extends StatelessWidget {
   final Funcionario funcionario;
-
   const MenuLateral({super.key, required this.funcionario});
 
   @override
@@ -21,20 +20,9 @@ class MenuLateral extends StatelessWidget {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            currentAccountPicture: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (_) => DashboardPage(funcionario: funcionario),
-                  ),
-                  (route) => false,
-                );
-              },
-              child: const CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage('assets/images/logo3.png'),
-              ),
+            currentAccountPicture: const CircleAvatar(
+              backgroundColor: Color.fromARGB(255, 12, 8, 8),
+              child: Icon(Icons.build, size: 35, color: Colors.blue),
             ),
             accountName: const Text(
               'CoolService ',
@@ -49,11 +37,10 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Início'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushAndRemoveUntil(
+              Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => DashboardPage(funcionario: funcionario),
                 ),
-                (route) => false,
               );
             },
           ),
@@ -63,12 +50,25 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Clientes'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ClientListPage(funcionario: funcionario),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.people),
+            title: const Text('Adicionar clientes'),
+            onTap: () {
+              Navigator.pop(context);
               Navigator.of(
                 context,
-              ).push(MaterialPageRoute(builder: (_) => const ClientListPage()));
+              ).push(MaterialPageRoute(builder: (_) => const ClientFormPage()));
             },
           ),
 
+          // Item: Funcionários
           ListTile(
             leading: const Icon(Icons.badge),
             title: const Text('Funcionários'),
@@ -81,6 +81,19 @@ class MenuLateral extends StatelessWidget {
               );
             },
           ),
+          if (isAdmin)
+            ListTile(
+              leading: const Icon(Icons.person_add_alt_1),
+              title: const Text('Adicionar funcionário'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const FuncionarioFormPage(),
+                  ),
+                );
+              },
+            ),
 
           ListTile(
             leading: const Icon(Icons.handyman),
@@ -89,11 +102,22 @@ class MenuLateral extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const ServiceListPage()),
+                MaterialPageRoute(
+                  builder: (_) => ServiceListPage(funcionario: funcionario),
+                ),
               );
             },
           ),
+          if (isAdmin)
+            ListTile(
+              leading: const Icon(Icons.add_box),
+              title: const Text('Adicionar serviço'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
 
+          // Item: Ordens de Serviço
           ListTile(
             leading: const Icon(Icons.assignment),
             title: const Text('Ordens de Serviço'),
