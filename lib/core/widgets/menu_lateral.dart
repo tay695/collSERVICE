@@ -33,7 +33,7 @@ class MenuLateral extends StatelessWidget {
               },
               child: const CircleAvatar(
                 backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage('assets/images/logo2.png'),
+                backgroundImage: AssetImage('assets/images/logo3.png'),
               ),
             ),
             accountName: const Text(
@@ -122,7 +122,7 @@ class MenuLateral extends StatelessWidget {
               configViewModel.toggleTheme(value);
             },
           ),
-          
+
           ListTile(
             leading: const Icon(Icons.logout, color: Colors.red),
             title: const Text('Sair', style: TextStyle(color: Colors.red)),

@@ -144,11 +144,6 @@ class _OrdemServicoFormPageState extends State<OrdemServicoFormPage> {
                         width: 1.5,
                       ),
                     ),
-                    child: const Icon(
-                      Icons.assignment_rounded,
-                      color: AppColors.azulGelo,
-                      size: 28,
-                    ),
                   ),
                   const SizedBox(height: 10),
                   const Text(

@@ -18,7 +18,7 @@ class DashboardPage extends StatelessWidget {
     final ordens = viewModel.ordens;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('CoolService Dashboard')),
+      appBar: AppBar(title: const Text('CoolService ')),
       drawer: MenuLateral(funcionario: funcionario),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,7 +26,7 @@ class DashboardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Resumo das Ordens de Serviço',
+              ' Ordens de Serviço',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
