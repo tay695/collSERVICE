@@ -5,6 +5,7 @@ import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios
 import 'package:coolservice/freatures/funcionarios/presentation/view/funcionario_list_page.dart';
 import 'package:coolservice/freatures/ordem_servico/presentation/view/ordem_servico_form_page.dart';
 import 'package:coolservice/freatures/servico/presentation/view/service_list_page.dart';
+import 'package:coolservice/freatures/funcionarios/presentation/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -108,6 +109,17 @@ class MenuLateral extends StatelessWidget {
             value: configViewModel.isDarkMode,
             onChanged: (bool value) {
               configViewModel.toggleTheme(value);
+            },
+          ),
+          
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.red),
+            title: const Text('Sair', style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const LoginPage()),
+                (route) => false,
+              );
             },
           ),
 
