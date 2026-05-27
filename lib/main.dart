@@ -2,6 +2,8 @@ import 'package:coolservice/freatures/clientes/data/repositories/sqlite_client_r
 import 'package:coolservice/freatures/clientes/presentation/view_model/client_view_model.dart';
 import 'package:coolservice/freatures/funcionarios/data/repositories/sqlite_funcionario_repository.dart';
 import 'package:coolservice/freatures/funcionarios/presentation/view_model/funcionario_viewModel.dart';
+import 'package:coolservice/freatures/ordem_servico/data/repositories/sqlite_ordem_servico_repository.dart';
+import 'package:coolservice/freatures/ordem_servico/presentation/view_model/ordem_servico_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:coolservice/freatures/servico/data/repositories/shared_preferences_service_repository.dart';
@@ -15,7 +17,6 @@ import 'package:coolservice/freatures/funcionarios/presentation/view/login_page.
 import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,13 +38,8 @@ await repo.save(Funcionario(
   passwordHash: hash,
 ));
 
-
-  // Instanciando os repositórios uma única vez na memória
   final funcionarioRepository = SQLiteFuncionarioRepository();
   final clienteRepository = SQLiteClientRepository();
-
-
-
 
   runApp(
     MultiProvider(
@@ -62,6 +58,12 @@ await repo.save(Funcionario(
             kIsWeb
                 ? SharedPreferencesServiceRepository()
                 : SQLiteServiceRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrdemServicoViewModel(
+            SQLiteOrdemServicoRepository(),
+            prefService,
           ),
         ),
       ],

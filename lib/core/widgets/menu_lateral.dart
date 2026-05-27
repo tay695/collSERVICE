@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios.dart';
 
 class MenuLateral extends StatelessWidget {
-   final Funcionario funcionario;
-    const MenuLateral({super.key, required this.funcionario});
+  final Funcionario funcionario;
+  const MenuLateral({super.key, required this.funcionario});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,9 @@ class MenuLateral extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => DashboardPage(funcionario: funcionario)),
+                MaterialPageRoute(
+                  builder: (_) => DashboardPage(funcionario: funcionario),
+                ),
               );
             },
           ),
@@ -70,15 +72,15 @@ class MenuLateral extends StatelessWidget {
           ),
 
           // Item: Funcionários
-           ListTile(
+          ListTile(
             leading: const Icon(Icons.badge),
             title: const Text('Funcionários'),
             onTap: () {
               Navigator.pop(context);
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                    builder: (_) =>
-                        FuncionarioListPage(funcionario: funcionario)),
+                  builder: (_) => FuncionarioListPage(funcionario: funcionario),
+                ),
               );
             },
           ),
@@ -90,13 +92,11 @@ class MenuLateral extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                      builder: (_) => const FuncionarioFormPage()),
+                    builder: (_) => const FuncionarioFormPage(),
+                  ),
                 );
               },
             ),
-
-         
-
 
           // Item: Serviços
           ListTile(
@@ -110,7 +110,7 @@ class MenuLateral extends StatelessWidget {
               );
             },
           ),
-           if (isAdmin)
+          if (isAdmin)
             ListTile(
               leading: const Icon(Icons.add_box),
               title: const Text('Adicionar serviço'),
@@ -118,7 +118,6 @@ class MenuLateral extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
-
 
           // Item: Ordens de Serviço
           ListTile(
