@@ -14,7 +14,7 @@ class ClientModel extends Client {
     return {
       'id': id,
       'name': name,
-      'cpfCnpj': cpfCnpj,
+      'cpf_cnpj': cpfCnpj,
       'address': address,
       'phone': phone,
       'email': email,
@@ -25,7 +25,7 @@ class ClientModel extends Client {
     return ClientModel(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
-      cpfCnpj: map['cpfCnpj'] ?? '',
+      cpfCnpj: map['cpf_cnpj'] ?? '',
       address: map['address'] ?? '',
       phone: map['phone'] ?? '',
       email: map['email'] ?? '',

@@ -8,6 +8,8 @@ class Funcionario {
   final String phone;
   final UserRole role;
   final bool isActive;
+  final String username;   
+  final String passwordHash;
 
   Funcionario({
     required this.id,
@@ -17,5 +19,7 @@ class Funcionario {
     required this.phone,
     required this.role,
     required this.isActive,
+    required this.username, 
+    required this.passwordHash
   });
 }

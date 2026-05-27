@@ -9,6 +9,8 @@ class FuncionarioModel extends Funcionario {
     required super.phone,
     required super.role,
     required super.isActive,
+    required super.username, 
+    required super.passwordHash,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,8 @@ class FuncionarioModel extends Funcionario {
       'phone': phone,
       'role': role.name,
       'isActive': isActive ? 1 : 0,
+      'username': username,
+      'password_hash': passwordHash,
     };
   }
 
@@ -32,6 +36,8 @@ class FuncionarioModel extends Funcionario {
       phone: map['phone'] ?? '',
       isActive: map['isActive'] == 1,
       role: UserRole.values.byName(map['role'] ?? 'employee'),
+      username: map['username'] ?? '',
+      passwordHash: map['password_hash'] ?? '',
     );
   }
 }

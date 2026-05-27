@@ -31,7 +31,7 @@ class SQLiteClientRepository implements IClientRepository {
   Future<List<Client>> getAllClients() async {
     final db = await _dbHelper.database;
     final List<Map<String, dynamic>> maps = await db.query('clients');
-
+    print('CLIENTES NO BANCO: ${maps.length}');
     return List.generate(maps.length, (i) {
       return ClientModel.fromMap(maps[i]);
     });

@@ -1,48 +1,71 @@
 import 'package:coolservice/core/app_config/presentation/viewmodels/app_config_view_model.dart';
+import 'package:coolservice/core/presentation/view/dashboard_page.dart';
+import 'package:coolservice/freatures/clientes/presentation/view/client_list_page.dart';
+import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios.dart';
+import 'package:coolservice/freatures/funcionarios/presentation/view/funcionario_list_page.dart';
+import 'package:coolservice/freatures/ordem_servico/presentation/view/ordem_servico_form_page.dart';
+import 'package:coolservice/freatures/servico/presentation/view/service_list_page.dart';
+import 'package:coolservice/freatures/funcionarios/presentation/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MenuLateral extends StatelessWidget {
-  const MenuLateral({super.key});
+  final Funcionario funcionario;
+  const MenuLateral({super.key, required this.funcionario});
 
   @override
   Widget build(BuildContext context) {
-    // Escuta a ViewModel global para saber se o Modo Escuro está ativo
     final configViewModel = context.watch<AppConfigViewModel>();
 
     return Drawer(
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(Icons.build, size: 35, color: Colors.blue),
+            currentAccountPicture: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (_) => DashboardPage(funcionario: funcionario),
+                  ),
+                  (route) => false,
+                );
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.transparent,
+                backgroundImage: AssetImage('assets/images/logo3.png'),
+              ),
             ),
             accountName: const Text(
               'CoolService App',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            accountEmail: const Text('sprint2_v1.0@coolservice.com'),
+            accountEmail: const Text('coolservice@gmail.com.com'),
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
-
-          // Item: Dashboard / Início
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Início'),
             onTap: () {
-              Navigator.pop(context); // Fecha o menu lateral
-              // Aqui você adicionaria a navegação para a home se necessário
+              Navigator.pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => DashboardPage(funcionario: funcionario),
+                ),
+              );
             },
           ),
 
-          // Item: Clientes
           ListTile(
             leading: const Icon(Icons.people),
             title: const Text('Clientes'),
             onTap: () {
               Navigator.pop(context);
-              // Navigator.pushNamed(context, '/clientes');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ClientListPage(funcionario: funcionario),
+                ),
+              );
             },
           ),
 
@@ -52,7 +75,25 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Funcionários'),
             onTap: () {
               Navigator.pop(context);
-              // Navigator.pushNamed(context, '/funcionarios');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => FuncionarioListPage(funcionario: funcionario),
+                ),
+              );
+            },
+          ),
+
+          ListTile(
+            leading: const Icon(Icons.handyman),
+            title: const Text('Serviços'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ServiceListPage(funcionario: funcionario),
+                ),
+              );
             },
           ),
 
@@ -62,11 +103,15 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Ordens de Serviço'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const OrdemServicoFormPage()),
+              );
             },
           ),
 
-          const Divider(), // Linha divisória estética
-          // Item Especial: Switch do Modo Escuro integrado ao SharedPreferences
+          const Divider(),
+
           SwitchListTile(
             secondary: Icon(
               configViewModel.isDarkMode ? Icons.dark_mode : Icons.light_mode,
@@ -74,13 +119,22 @@ class MenuLateral extends StatelessWidget {
             title: const Text('Modo Escuro'),
             value: configViewModel.isDarkMode,
             onChanged: (bool value) {
-              // Executa a função da ViewModel que salva no SharedPreferences
               configViewModel.toggleTheme(value);
             },
           ),
 
-          const Spacer(), // Empurra o rodapé para o final da tela
-          // Versão do App no Rodapé
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.red),
+            title: const Text('Sair', style: TextStyle(color: Colors.red)),
+            onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const LoginPage()),
+                (route) => false,
+              );
+            },
+          ),
+
+          const Spacer(),
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
