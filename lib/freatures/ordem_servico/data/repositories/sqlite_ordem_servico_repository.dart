@@ -11,7 +11,6 @@ class SQLiteOrdemServicoRepository implements IOrdemServicoRepository {
   Future<void> save(OrdemServico ordem) async {
     final db = await _dbHelper.database;
 
-    // Converte a Entidade em Model para usar o toMap()
     final model = OrdemServicoModel(
       id: ordem.id,
       clientId: ordem.clientId,
@@ -35,7 +34,6 @@ class SQLiteOrdemServicoRepository implements IOrdemServicoRepository {
       solucaoRecomendada: ordem.solucaoRecomendada,
     );
 
-    // Se o ID já existir, atualiza. Se não, insere novo.
     await db.insert(
       'service_orders',
       model.toMap(),
@@ -47,7 +45,6 @@ class SQLiteOrdemServicoRepository implements IOrdemServicoRepository {
     final db = await _dbHelper.database;
     final List<Map<String, dynamic>> maps = await db.query('service_orders');
 
-    // Transforma cada linha do banco em um objeto OrdemServico
     return List.generate(maps.length, (i) {
       return OrdemServicoModel.fromMap(maps[i]);
     });
@@ -63,7 +60,6 @@ class SQLiteOrdemServicoRepository implements IOrdemServicoRepository {
   Future<List<OrdemServico>> listByClient(String clientId) async {
     final db = await _dbHelper.database;
 
-    // Busca só as ordens daquele cliente específico
     final List<Map<String, dynamic>> maps = await db.query(
       'service_orders',
       where: 'clientId = ?',
@@ -73,5 +69,19 @@ class SQLiteOrdemServicoRepository implements IOrdemServicoRepository {
     return List.generate(maps.length, (i) {
       return OrdemServicoModel.fromMap(maps[i]);
     });
+  }
+
+  @override
+  Future<List<OrdemServico>> listByEmployee(String employeeId) async {
+    final db = await _dbHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'service_orders',
+      where: 'employeeId = ?',
+      whereArgs: [employeeId],
+    );
+    return List.generate(
+      maps.length,
+      (i) => OrdemServicoModel.fromMap(maps[i]),
+    );
   }
 }

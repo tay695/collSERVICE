@@ -2,6 +2,8 @@ import 'package:coolservice/freatures/clientes/data/repositories/sqlite_client_r
 import 'package:coolservice/freatures/clientes/presentation/view_model/client_view_model.dart';
 import 'package:coolservice/freatures/funcionarios/data/repositories/sqlite_funcionario_repository.dart';
 import 'package:coolservice/freatures/funcionarios/presentation/view_model/funcionario_viewModel.dart';
+import 'package:coolservice/freatures/ordem_servico/data/repositories/sqlite_ordem_servico_repository.dart';
+import 'package:coolservice/freatures/ordem_servico/presentation/view_model/ordem_servico_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:coolservice/freatures/servico/data/repositories/shared_preferences_service_repository.dart';
@@ -11,9 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:coolservice/core/app_config/data/preferences_services.dart';
 import 'package:coolservice/core/app_config/presentation/viewmodels/app_config_view_model.dart';
 import 'package:coolservice/core/theme/app_theme.dart';
-import 'package:coolservice/core/splash/presentation/view/splash_page.dart';
 import 'package:coolservice/freatures/funcionarios/presentation/view/login_page.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,13 +21,8 @@ void main() async {
   final prefService = PreferencesService();
   await prefService.disableFirstTime();
 
-
-  // Instanciando os repositórios uma única vez na memória
   final funcionarioRepository = SQLiteFuncionarioRepository();
   final clienteRepository = SQLiteClientRepository();
-
-
-
 
   runApp(
     MultiProvider(
@@ -46,6 +41,12 @@ void main() async {
             kIsWeb
                 ? SharedPreferencesServiceRepository()
                 : SQLiteServiceRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrdemServicoViewModel(
+            SQLiteOrdemServicoRepository(),
+            prefService,
           ),
         ),
       ],

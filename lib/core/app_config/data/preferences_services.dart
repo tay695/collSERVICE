@@ -24,4 +24,14 @@ class PreferencesService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_keyFirstTime) ?? true;
   }
+
+  Future<void> saveKmFee(double fee) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('km_fee_rule', fee);
+  }
+
+  Future<double> getKmFee() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble('km_fee_rule') ?? 2.50;
+  }
 }

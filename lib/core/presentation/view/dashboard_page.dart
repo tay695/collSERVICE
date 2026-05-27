@@ -1,9 +1,10 @@
 import 'package:coolservice/core/theme/app_theme.dart';
 import 'package:coolservice/core/widgets/menu_lateral.dart';
+import 'package:coolservice/freatures/funcionarios/domain/entidades/funcionarios.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+  const DashboardPage({super.key, required Funcionario funcionario});
 
   @override
   Widget build(BuildContext context) {

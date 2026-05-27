@@ -5,4 +5,5 @@ abstract class IOrdemServicoRepository {
   Future<List<OrdemServico>> listAll();
   Future<void> delete(String id);
   Future<List<OrdemServico>> listByClient(String clientId);
+  Future<List<OrdemServico>> listByEmployee(String employeeId);
 }
